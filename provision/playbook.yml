@@ -1,0 +1,18 @@
+---
+- hosts: all
+  tasks:
+    - name: add visionect key
+      sudo: yes
+      apt_key: url=http://packages.visionect.com/visionect.gpg
+    - name: add visionect server
+      sudo: yes
+      apt_repository: repo='deb http://packages.visionect.com/ubuntu trusty main' state=present
+    - name: install koala
+      sudo: yes
+      apt: name=koala update_cache=yes
+      notify:
+        - restart koala services
+  
+  handlers:
+    - name: restart koala services
+      supervisorctl: name=all state=restarted 
