@@ -1,2 +1,6 @@
 .vagrant
 ENV
+*.pyc
+_static
+selelector.db
+local_settings.py

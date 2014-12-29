@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  {% load static from staticfiles %}
+  <script type="text/javascript" src="{% static "apps.js" %}"></script>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Url</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button class="btn btn-primary" id="addnew">Add new</button>
+  <div class="clearfix"></div>
+{% endblock  %}

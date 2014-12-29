@@ -26,13 +26,13 @@
         - python-dev
     - name: install app selector
       sudo: yes
-      pip: requirements=/vagrant/koala-app-selector/requirements.txt
+      pip: requirements=/vagrant/requirements.txt
     - name: prepare the db
-      shell: python /vagrant/koala-app-selector/selector/manage.py syncdb
+      shell: python /vagrant/selector/manage.py syncdb
     - name: start selector app
       shell: gunicorn_django -b 0.0.0.0:8001 -w 3 -D
       args: 
-        chdir: /vagrant/koala-app-selector/selector/
+        chdir: /vagrant/selector/
 
     # Start nginx
     - name: Nginx | Make sure nginx is installed (package)

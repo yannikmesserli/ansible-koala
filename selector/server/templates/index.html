@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  {% load static from staticfiles %}
+  <script type="text/javascript" src="{% static "devices.js" %}"></script>
+  <table class="table" id="devices">
+    <thead>
+      <tr>
+        <th>Device</th>
+        <!-- <th>Application</th>
+        <th>Application Admin</th> -->
+        <th>Url</th>
+        <th>Device Management</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+{% endblock  %}

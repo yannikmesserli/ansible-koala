@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+{% load static from staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Start</title>
+    <style>
+        @font-face {
+            font-family: 'caecilia_lt_std55_roman';
+            src: url('{% static "fonts/caecilialtstd-roman-webfont.eot" %}');
+            src: url('{% static "fonts/caecilialtstd-roman-webfont.eot?" %}') format('embedded-opentype'),
+                 url('{% static "fonts/caecilialtstd-roman-webfont.woff" %}') format('woff'),
+                 url('{% static "fonts/caecilialtstd-roman-webfont.ttf" %}') format('truetype'),
+                 url('{% static "fonts/caecilialtstd-roman-webfont.svg" %}') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            font-family: 'caecilia_lt_std55_roman';
+            font-size: 1.1em;
+            margin: 0;
+            padding: 0;
+        }
+        h1{
+            text-align: center;
+        }
+        h3 {
+            font-size: 1em;
+            display: block;
+            top: -100px;
+            position: relative;
+        }
+        p {
+            text-align: justify;
+        }
+        #text {
+            padding: 0 20px;
+            overflow: hidden;
+            text-overflow: clip;
+        }
+        img {
+            border:1px solid black;
+            max-height:100px;
+            top: 80px;
+            position: relative;
+        }
+        div {
+            clear: both;
+            text-align: center;
+        }
+
+        @media all and (max-height: 600px) {
+            div {
+                text-align: left;
+            }
+            img {
+                float: right;
+                margin-left: 20px;
+                margin-bottom: 20px;
+                top: 0;
+            }
+            h3 {
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="text">
+    <h1>~ SUCCESS! ~</h1>
+    <p>Congratulations, you successfully configured the V-Tablet device and connected it to V-Server. We've included a couple of examples to get you started. To access the examples:</p>
+    <div>
+        <img src="{% static "img/step_1.png" %}"></img>
+        <h3>1. Open the examples control page in your browser (http://VIRTUAL_MACHINE_IP:8000/).</h3>
+    </div>
+    <div>
+        <img src="{% static "img/step_2.png" %}"></img>
+        <h3>2. Configure the device display size and orientation in Network Manager Admin. Default password: admin</h3>
+    </div>
+    <div>
+        <img src="{% static "img/step_3.png" %}"></img>
+        <h3>3. Select an example application from the drop down menu and access the admin interface (if possible).</h3>
+    </div>
+</div>
+</body>
+</html>
