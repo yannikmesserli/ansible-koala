@@ -12,7 +12,54 @@
       apt: name=koala update_cache=yes
       notify:
         - restart koala services
-  
+
+    # Install the selector app here:
+    - name: install prerquies for selector app
+      apt: name={{ item }} state=present
+      sudo: yes
+      with_items:
+        - build-essential
+        - sqlite3 
+        - libsqlite3-dev
+        - python
+        - python-pip 
+        - python-dev
+    - name: install app selector
+      sudo: yes
+      pip: requirements=/vagrant/koala-app-selector/requirements.txt
+    - name: prepare the db
+      shell: python /vagrant/koala-app-selector/selector/manage.py syncdb
+    - name: start selector app
+      shell: gunicorn_django -b 0.0.0.0:8001 -w 3 -D
+      args: 
+        chdir: /vagrant/koala-app-selector/selector/
+
+    # Start nginx
+    - name: Nginx | Make sure nginx is installed (package)
+      sudo: yes
+      apt:
+        pkg: nginx
+        state: present
+    - name:
+      sudo: yes
+      copy: src=template/nginx-selector-app.conf dest=/etc/nginx/sites-available/nginx-selector-app.conf
+    - name: Nginx | Enable the default site
+      sudo: yes
+      file:
+        path: "/etc/nginx/sites-enabled/nginx-selector-app.conf"
+        src: "/etc/nginx/sites-available/nginx-selector-app.conf"
+        state: link
+      notify:
+        - restart nginx
+    - name: Nginx | Register Nginx as a service
+      service:
+        name: nginx
+        enabled: yes
+
+
   handlers:
     - name: restart koala services
       supervisorctl: name=all state=restarted 
+    - name: restart nginx
+      service: name=nginx state=restarted
+      sudo: yes
