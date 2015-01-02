@@ -26,7 +26,7 @@
         - python-dev
     - name: install app selector
       sudo: yes
-      pip: requirements=../requirements.txt
+      pip: requirements=requirements.txt
     - name: prepare the db
       shell: python ../selector/manage.py syncdb
     - name: start selector app
