@@ -26,13 +26,13 @@
         - python-dev
     - name: install app selector
       sudo: yes
-      pip: requirements=/vagrant/requirements.txt
+      pip: requirements=../requirements.txt
     - name: prepare the db
-      shell: python /vagrant/selector/manage.py syncdb
+      shell: python ../selector/manage.py syncdb
     - name: start selector app
       shell: gunicorn_django -b 0.0.0.0:8001 -w 3 -D
       args: 
-        chdir: /vagrant/selector/
+        chdir: ../selector/
 
     # Start nginx
     - name: Nginx | Make sure nginx is installed (package)
