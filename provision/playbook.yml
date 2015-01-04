@@ -28,7 +28,7 @@
         - python-dev
     - name: install app selector
       sudo: yes
-      pip: requirements=/vagrant/requirements.txt
+      pip: requirements=requirements.txt
     - name: prepare the db
       shell: python {{ path_select }}manage.py syncdb --noinput
     - name: collect static file

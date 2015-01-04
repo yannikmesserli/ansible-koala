@@ -1,0 +1,2 @@
+[lxc-master]
+vitty.co 	ansible_ssh_user=root

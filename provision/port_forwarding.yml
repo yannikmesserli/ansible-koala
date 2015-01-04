@@ -1,0 +1,14 @@
+---
+- hosts: lxc-master
+  tasks:
+
+    # Install the selector app here:
+    - name: forward all the port
+      shell: iptables -t nat -A PREROUTING -i eth0 -p tcp --dport {{ item.from }} -j DNAT --to 10.0.3.221:{{ item.to }}
+      with_items:
+        - { from: 8820, to: 80 }
+        - { from: 11100, to: 11100 }
+        - { from: 11109, to: 11109 }
+        - { from: 8150, to: 8150 }
+        - { from: 8821, to: 8001 }
+        - { from: 8822, to: 8000 }
