@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from rest_framework import routers
 from server import views
+from flatapp import views as flatviews
 
 router = routers.DefaultRouter()
 #router.register(r'apps', views.AppViewSet)
@@ -19,6 +20,8 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'selector.views.home', name='home'),
     # url(r'^selector/', include('selector.foo.urls')),
+
+    url(r'^flat$', flatviews.FlatApp.as_view()),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
