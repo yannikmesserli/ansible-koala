@@ -2,5 +2,5 @@
 ENV
 *.pyc
 _static
-selelector.db
+selector.db
 local_settings.py

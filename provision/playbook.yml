@@ -1,5 +1,7 @@
 ---
 - hosts: all
+  vars:
+    path_select: "/vagrant/selector/"
   tasks:
     - name: add visionect key
       sudo: yes
@@ -28,11 +30,15 @@
       sudo: yes
       pip: requirements=/vagrant/requirements.txt
     - name: prepare the db
-      shell: python /vagrant/selector/manage.py syncdb
+      shell: python {{ path_select }}manage.py syncdb --noinput
+    - name: collect static file
+      shell: python manage.py collectstatic --noinput
+      args: 
+        chdir: "{{ path_select }}"
     - name: start selector app
       shell: gunicorn_django -b 0.0.0.0:8001 -w 3 -D
       args: 
-        chdir: /vagrant/selector/
+        chdir: "{{ path_select }}"
 
     # Start nginx
     - name: Nginx | Make sure nginx is installed (package)
@@ -42,7 +48,7 @@
         state: present
     - name:
       sudo: yes
-      copy: src=template/nginx-selector-app.conf dest=/etc/nginx/sites-available/nginx-selector-app.conf
+      template: src=template/nginx-selector-app.conf dest=/etc/nginx/sites-available/nginx-selector-app.conf
     - name: Nginx | Enable the default site
       sudo: yes
       file:
